@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
 
   root 'application#hello'
 
@@ -8,5 +9,6 @@ Rails.application.routes.draw do
 
   get 'test', to: 'application#test'
 
-  get 'sign_up', to: 'users#new'
+  get 'log_out', to: 'extra#new'
+  #get 'sign_up', to: 'users#new'
 end
