@@ -1,29 +1,129 @@
-<h2>Sign up</h2>
+<style>
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 1em;
+      }
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      nav li {
+        display: inline-block;
+        margin-right: 1em;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+      }
+      nav a:hover {
+        text-decoration: underline;
+      }   
+      .gradient-custom-2 {
+        /* fallback for old browsers */
+        background: #00e1ff;
+      
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(0,225,255,0.5), rgba(240,0,0,0.5));
+      
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(0,225,255,0.5), rgba(240,0,0,0.5))
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+        
+      }
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        @media (min-width: 768px) {
+        .gradient-form {
+          height: 94vh !important;
+        }
+        }
+        @media (min-width: 769px) {
+        .gradient-custom-2 {
+          border-top-right-radius: .3rem;
+          border-bottom-right-radius: .3rem;
+          
+        }
+        }
+        .card-body h4 {
+          font-size: 30px;
+        }
+        .rightside{
+        height: 93.5vh;
+        text-align:center;
+        margin-top: 18em;
+       }
+</style>  
+
+<header>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/log_out">Log out</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <img src="https://o.remove.bg/downloads/c7a34f51-62a1-42d1-a6cc-92ff8f8b9c63/pngtree-modern-abstract-3d-logo-png-image_771012-removebg-preview.png"
+                    style="width: 185px;" alt="logo">
+                  <h4 class="mt-1 mb-5 pb-1">Sign up</h4>
+                </div>
+
+                <form>
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                  <%= render "devise/shared/error_messages", resource: resource %>
+
+                  <div class="form-outline mb-4">
+                    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "E-mail" %>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <br>
+                    <% if @minimum_password_length %>
+                    <em>(<%= @minimum_password_length %> characters minimum)</em>
+                    <% end %><br />
+                    <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password" %>
+                  </div>
+
+                 <div class="form-outline mb-4">
+                    <br>
+                    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirm Password"  %>
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <br>
+                    <%= f.submit "Sign up", class: "btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" %>
+                    <br>
+                  </div>
+                <% end %>
+                </form>
+
+                <%= render "devise/shared/links" %>
+                </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="rightside">
+                <h4 class="mb-4">We are more than just a company</h4>
+                <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</section>

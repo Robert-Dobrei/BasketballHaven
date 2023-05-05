@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root 'application#hello'
+  root 'home#home'
 
   get 'goodbye', to: 'application#goodbye'
 
@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   get 'test', to: 'application#test'
 
   get 'log_out', to: 'extra#new'
-  #get 'sign_up', to: 'users#new'
+
 end
