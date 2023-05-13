@@ -62,6 +62,8 @@
       <li><a href="/about">About</a></li>
       <li><a href="/contact">Contact</a></li>
       <li><a href="/log_out">Log out</a></li>
+      <li><a href="/categories">Categories</a></li>
+      <li><a href="/products">Products</a></li>
     </ul>
   </nav>
 </header>
@@ -76,13 +78,12 @@
               <div class="card-body p-md-5 mx-md-4">
 
                 <div class="text-center">
-                  <img src="https://o.remove.bg/downloads/c7a34f51-62a1-42d1-a6cc-92ff8f8b9c63/pngtree-modern-abstract-3d-logo-png-image_771012-removebg-preview.png"
+                  <img src="https://i.imgur.com/k79iqfx.png"
                     style="width: 185px;" alt="logo">
                   <h4 class="mt-1 mb-5 pb-1">Sign up</h4>
                 </div>
 
-                <form>
-                <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                <%= form_for(resource, as: resource_name, url: user_registration_path) do |f| %>
                   <%= render "devise/shared/error_messages", resource: resource %>
 
                   <div class="form-outline mb-4">
@@ -108,7 +109,6 @@
                     <br>
                   </div>
                 <% end %>
-                </form>
 
                 <%= render "devise/shared/links" %>
                 </div>
