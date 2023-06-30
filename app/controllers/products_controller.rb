@@ -1,13 +1,34 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :check_admin, except: [:show, :index]
+
+  include Pagy::Backend
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    @products = Product.includes(:category)
+  
+    @products = @products.where(category_id: params[:category_id]) if params[:category_id].present?
+  
+    if params[:search].present? 
+      search_query = "%#{params[:search]}%"
+      @products = @products.where("name LIKE ? OR description LIKE ?", search_query, search_query)
+    end
+  
+    if params[:sort_by] == 'price_asc'
+      @products = @products.order(price: :asc)
+    elsif params[:sort_by] == 'price_desc'
+      @products = @products.order(price: :desc)
+    end
+  
+    @pagy, @products = pagy(@products.order(:name))
   end
+  
 
   # GET /products/1 or /products/1.json
   def show
+    
   end
 
   # GET /products/new
@@ -65,6 +86,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:id, :name, :description, :sku, :stock, :price, :category_id)
+      params.require(:product).permit(:id, :name, :description, :sku, :stock, :price, :category_id, :image)
     end
 end

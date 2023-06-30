@@ -1,0 +1,11 @@
+{
+  "name": "mdb-standard-app",
+  "version": "6.4.0",
+  "homepage": "https://mdbootstrap.com/docs/standard/",
+  "license": "MIT",
+  "scripts": {
+    "build": "esbuild app/javascript/application.js --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "watch": "esbuild app/javascript/application.js --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --watch"
+  }
+}
+

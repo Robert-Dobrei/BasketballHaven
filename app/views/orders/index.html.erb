@@ -1,0 +1,70 @@
+<%= javascript_include_tag 'mdb' %>
+
+<style>
+  .show-link {
+    color: white; /* Default color */
+    transition: color 0.3s; /* Transition effect */
+  }
+
+  .show-link:hover {
+    color: gray; /* Hover color */
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+<body style="background-color: #E0E0E0; display: flex; flex-direction: column; min-height: 100vh; margin: 0; padding: 0;">
+<div class="container mt-5">
+  <h2 style="font-family: 'Anton', sans-serif;">Orders</h2>
+  <br>
+  <%= render "filter_menu" %>
+  <%== pagy_info(@pagy) %>
+  <br>
+  <br>
+  <table class="table table-info table-striped table-dark">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">User</th>
+        <th scope="col">Product</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Status</th>
+        <th scope="col">Tracking Number</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.user.email %></td>
+          <td><%= order.product.name %></td>
+          <td><%= order.quantity %></td>
+          <td><%= order.status %></td>
+          <td><%= order.tracking_nr %></td>
+          <% if current_user.present? %>
+            <% if current_user.role == "admin" %>
+              <% if order.status == "not shipped" %>
+                <td><%= link_to 'Show', order, class:'show-link' %> | <%= link_to 'Ship Now', edit_order_path(order), class:'show-link' %> | <%= link_to 'Destroy', order, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class:'show-link' %></td>
+              <% else %>
+                <td><%= link_to 'Show', order, class:'show-link' %> | <%= link_to 'Destroy', order, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class:'show-link' %></td></td>
+              <% end %>
+            <% else %>
+              <td><%= link_to 'Show', order, class:'show-link' %></td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+  <br>
+</div>
+</body>
+
+<footer class="text-center text-white", style="margin-top: auto;">
+  <div class="text-center p-2" style="background-color: #332d2d; color: #FFFFFF;">
+      © 2023 Basketball Haven
+  </div>
+</footer>

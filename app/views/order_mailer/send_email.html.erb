@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Your Order Was Placed Successfully!</title>
+  <style>
+    .container {
+      text-align: center;
+    }
+    h1 {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+    <img src="https://i.imgur.com/jvAaoko.png", style="max-width: 300px;">
+    <h1>Your Order #<%= @order.id %> Was Placed Successfully!</h1>
+    <div>
+      <p>Dear <%= @user.name %>,</p>
+      <p>We are pleased to inform you that your order has been placed.</p>
+      <p>Thank you for shopping with us.</p>
+      <br>
+      <p>Best regards,</p>
+      <p>Basketball Haven.</p>
+    </div>
+  </div>
+</body>
+</html>

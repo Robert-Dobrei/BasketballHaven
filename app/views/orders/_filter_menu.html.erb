@@ -1,0 +1,14 @@
+<!-- _filter_menu.html.erb -->
+<%= form_tag orders_path, method: :get, class: 'form-inline', id: 'orders-form' do %>
+  <div class="form-group mb-2">
+    <%= label_tag :status, 'Filter by status:' %>
+    <%= select_tag :status, options_for_select(['shipped', 'not shipped'], params[:status]), prompt: 'All'%>
+    <% if current_user.role == "admin" %>
+      <br>
+      <%= label_tag :user_id, 'Filter by user:' %>
+      <%= select_tag :user_id, options_for_select(User.all.pluck(:email, :id), params[:user_id]), prompt: 'All'%>
+    <% end %>
+    <%= submit_tag 'Filter', class: 'btn btn-primary', style: 'font-size: 12px; padding: 7px 15px;' %>
+  </div>
+
+<% end %>

@@ -1,0 +1,36 @@
+<%= form_for(@address) do |f| %>
+  <div class="form-outline mb-4">
+    <%= f.text_field :city, autofocus: true, required: true, class: "form-control", style: "color: white", placeholder: "City" %>
+  </div>
+  <br>
+  <div class="form-outline mb-4">
+    <%= f.text_field :street, autofocus: true, required: true, class: "form-control", style: "color: white", placeholder: "Street" %>
+  </div>
+  <br>
+  <div class="row mb-4">
+    <div class="col">
+      <div class="form-outline">
+        <%= f.number_field :housenr, autofocus: true, class: "form-control", style: "color: white", placeholder: "House Nr." %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <%= f.text_field :flat, autofocus: true, class: "form-control", style: "color: white", placeholder: "Flat" %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <%= f.number_field :floor, autofocus: true, class: "form-control", style: "color: white", placeholder: "Floor" %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <%= f.number_field :aptnr, autofocus: true, class: "form-control", style: "color: white", placeholder: "Apt. Nr." %>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="actions">
+    <%= f.submit "Submit", class: "btn btn-primary btn-block mb-4" %>
+  </div>
+<% end %>

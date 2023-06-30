@@ -1,10 +1,10 @@
 <%= form_for(@category) do |f| %>
   <div class="form-outline mb-4">
-    <%= f.text_field :name, autofocus: true, required: true, class: "form-control", placeholder: "Name"%>
+    <%= f.text_field :name, autofocus: true, required: true, class: "form-control", style: "color: white", placeholder: "Name"%>
   </div>
   <br>
   <div class="form-outline mb-4">
-    <%= f.text_area :description, autofocus: true, required: true, class: "form-control", placeholder: "Description"%>
+    <%= f.text_area :description, autofocus: true, required: true, class: "form-control", style: "color: white", placeholder: "Description"%>
   </div>
   <br>
 
@@ -12,3 +12,4 @@
     <%= f.submit button_text, class: "btn btn-primary btn-block mb-4" %>
   </div>
 <% end %>
+

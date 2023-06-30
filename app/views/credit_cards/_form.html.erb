@@ -1,0 +1,28 @@
+<%= form_for(@credit_card) do |f| %>
+  <%= f.hidden_field :user_id, value: @user.id %>
+  <div class="form-outline mb-4">
+    <%= f.number_field :creditnr, autofocus: true, required: true, class: "form-control", style: "color: white", placeholder: "Credit Card Number" %>
+  </div>
+  <br>
+  <div class="row mb-4">
+    <div class="col">
+      <div class="form-outline">
+        <%= f.number_field :expday, autofocus: true, required: true, class: "form-control", style: "color: white", placeholder: "Exp. Day" %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <%= f.number_field :expmonth, autofocus: true, required: true, class: "form-control", style: "color: white", placeholder: "Exp. Month" %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+        <%= f.number_field :expyear, autofocus: true, required: true, class: "form-control", style: "color: white", placeholder: "Exp. Year" %>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="actions">
+    <%= f.submit "Submit", class: "btn btn-primary btn-block mb-4" %>
+  </div>
+<% end %>

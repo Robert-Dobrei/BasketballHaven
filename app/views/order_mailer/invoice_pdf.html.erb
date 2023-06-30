@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Invoice for order #<%= @order.id %></title>
+  <style>
+  .invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .invoice-table th,
+  .invoice-table td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+
+  .invoice-total {
+    font-weight: bold;
+  }
+
+  .company-logo {
+    max-width: 100px;
+  }
+
+  .img1{
+    max-width: 400px;
+  }
+
+  .h1{
+    font-size: 30px; 
+  }
+
+  .container1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class>
+      <img src="https://i.imgur.com/mDaj6Rs.png" alt="Company Logo" class="company-logo">
+      <span class="h1">Basketball Haven</span>
+    </div>
+    <h1 class="text-center mb-4">Invoice for order #<%= @order.id %></h1>
+    <table class="invoice-table">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Description</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @product.name %></td>
+          <td><%= @product.description %></td>
+          <td><%= @product.price %> $</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2" class="text-right invoice-total">Total:</td>
+          <td class="invoice-total"><%= @product.price %> $</td>
+        </tr>
+      </tfoot>
+    </table>
+    <br>
+    <div class="container1">
+      <%= image_tag @product.image, class: 'img1' %>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <table class="invoice-table">
+      <thead>
+        <tr>
+          <th>Delivery Address</th>
+          <th>Credit card used</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <% if @user.address %>
+              <%= @user.address.city %>, St. <%= @user.address.street %>, Nr. <%= @user.address.housenr %>
+            <% else %>
+              N/A
+            <% end %>
+          </td>
+          <td>
+            <% if @user.credit_card %>
+              <% credit_card_number = @user.credit_card.creditnr.to_s %>
+              <% masked_number = '*' * (credit_card_number.length - 4) + credit_card_number[-4, 4] %>
+              <%= masked_number %>
+            <% else %>
+              N/A
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

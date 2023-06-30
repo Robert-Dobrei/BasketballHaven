@@ -1,128 +1,104 @@
+<%= javascript_include_tag 'mdb' %>
+
 <style>
-      header {
-        background-color: #333;
-        color: #fff;
-        padding: 1em;
-      }
-      nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      nav li {
-        display: inline-block;
-        margin-right: 1em;
-      }
-      nav a {
-        color: #fff;
-        text-decoration: none;
-      }
-      nav a:hover {
-        text-decoration: underline;
-      }   
-      .gradient-custom-2 {
-        /* fallback for old browsers */
-        background: #00e1ff;
-      
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: -webkit-linear-gradient(to right, rgba(0,225,255,0.5), rgba(240,0,0,0.5));
-      
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        background: linear-gradient(to right, rgba(0,225,255,0.5), rgba(240,0,0,0.5))
+  @media (min-width: 1025px) {
+  .h-custom-2 {
+  height: 100%;
+  }
+  }
 
-        
-      }
-
-        @media (min-width: 768px) {
-        .gradient-form {
-          height: 94vh !important;
-        }
-        }
-        @media (min-width: 769px) {
-        .gradient-custom-2 {
-          border-top-right-radius: .3rem;
-          border-bottom-right-radius: .3rem;
-          
-        }
-        }
-        .card-body h4 {
-          font-size: 30px;
-        }
-        .rightside{
-        height: 93.5vh;
-        text-align:center;
-        margin-top: 18em;
-       }
+  .img1{
+    max-width: 100%; 
+    max-height: 100%; 
+    height: 120px;  
+  }
+  
 </style>  
 
-<header>
-  <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/about">About</a></li>
-      <li><a href="/contact">Contact</a></li>
-      <li><a href="/log_out">Log out</a></li>
-      <li><a href="/categories">Categories</a></li>
-      <li><a href="/products">Products</a></li>
-    </ul>
-  </nav>
-</header>
+<section class="vh-100">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6 text-black">
+      <br>
+        <div class="px-5 ms-xl-4">
+          <img class="img1" src="https://i.imgur.com/mDaj6Rs.png">
+          <span class="h1 fw-bold mb-0">Basketball Haven</span>
+        </div>
 
-<section class="h-100 gradient-form" style="background-color: #eee;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-xl-10">
-        <div class="card rounded-3 text-black">
-          <div class="row g-0">
-            <div class="col-lg-6">
-              <div class="card-body p-md-5 mx-md-4">
+        <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">  
+          <div style="width: 23rem;">
 
-                <div class="text-center">
-                  <img src="https://i.imgur.com/k79iqfx.png"
-                    style="width: 185px;" alt="logo">
-                  <h4 class="mt-1 mb-5 pb-1">Sign up</h4>
-                </div>
+            <%= form_for(resource, as: resource_name, url: user_registration_path) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
 
-                <%= form_for(resource, as: resource_name, url: user_registration_path) do |f| %>
-                  <%= render "devise/shared/error_messages", resource: resource %>
-
-                  <div class="form-outline mb-4">
-                    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "E-mail" %>
-                  </div>
-
-                  <div class="form-outline mb-4">
-                    <br>
-                    <% if @minimum_password_length %>
-                    <em>(<%= @minimum_password_length %> characters minimum)</em>
-                    <% end %><br />
-                    <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password" %>
-                  </div>
-
-                 <div class="form-outline mb-4">
-                    <br>
-                    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirm Password"  %>
-                  </div>
-
-                  <div class="text-center pt-1 mb-5 pb-1">
-                    <br>
-                    <%= f.submit "Sign up", class: "btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" %>
-                    <br>
-                  </div>
-                <% end %>
-
-                <%= render "devise/shared/links" %>
-                </div>
-            </div>
-            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-              <div class="rightside">
-                <h4 class="mb-4">We are more than just a company</h4>
-                <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign up</h3>
+              
+              <div class="form-outline mb-3">
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "E-mail" %>
               </div>
-            </div>
+
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %>
+              <div class="form-outline mb-4">
+                <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password" %>
+              </div>
+
+              <div class="form-outline mb-4">
+               
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirm Password"  %>
+              </div>
+
+              <div class="form-outline mb-4">
+              
+              <%= f.text_field :name, required: true, class: "form-control", placeholder: "Name"%>
+              </div>
+
+              <%= f.fields_for :address_attributes, resource.build_address do |a| %>   
+                <div class="form-outline mb-4">
+                
+                <%= a.text_field :city, required: true, class: "form-control", placeholder: "City"%>
+                </div>
+
+                <div class="form-outline mb-4">
+                
+                <%= a.text_field :street, required: true, class: "form-control", placeholder: "Street"%>
+                </div>
+
+                <div class="form-outline mb-4">
+                
+                <%= a.number_field :housenr, required: false, class: "form-control", placeholder: "House Number"%>
+                </div>
+
+                <div class="form-outline mb-4">
+               
+                <%= a.text_field :flat, required: false, class: "form-control", placeholder: "Flat"%>
+                </div>
+
+                <div class="form-outline mb-4">
+                
+                <%= a.number_field :floor, required: false, class: "form-control", placeholder: "Floor"%>
+                </div>
+
+                <div class="form-outline mb-4">
+               
+                <%= a.number_field :aptnr, required: false, class: "form-control", placeholder: "Ap. Number"%>
+                </div>
+              <% end %>
+
+              <div class="pt-1 mb-4 ">
+                <%= f.submit "Sign up", class: "btn btn-black btn-lg btn-block" %>
+              </div>
+
+            <% end %>
+            <label>Already have an account?</label>
+            <%= render "devise/shared/links" %> 
           </div>
         </div>
+      </div>
+      <div class="col-sm-6 px-0 d-none d-sm-block">
+        <img src="https://static01.nyt.com/images/2020/01/04/sports/03nba-takeaways3-print/merlin_166319154_b92292b2-1a0f-437d-a694-8a97b586227d-superJumbo.jpg?quality=75&auto=webp"
+          alt="Signup image" class="w-100 vh-100" style="object-fit: cover; object-position: center;">
       </div>
     </div>
   </div>

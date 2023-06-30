@@ -1,131 +1,109 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>My Awesome Web App</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-      /* Add any necessary styles here */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        display: flex;
-        flex-direction: column;
-        font-family: sans-serif;
-        margin: 0;
-        padding: 0;
-        background-image: url("https://img.freepik.com/free-photo/abstract-digital-grid-black-background_53876-97647.jpg?w=1380&t=st=1683305241~exp=1683305841~hmac=9f368cef96fd2ebcadc5d5daa90a94286b8c100d11ed293d91a28be6a93116da");
-        background-size: cover;
-        background-position: center center;
-      }
-      header {
-        background-color: #333;
-        color: #fff;
-        padding: 1em;
-      }
-      nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      nav li {
-        display: inline-block;
-        margin-right: 1em;
-      }
-      nav a {
-        color: #fff;
-        text-decoration: none;
-      }
-      nav a:hover {
-        text-decoration: underline;
-      }
-      main {
-        flex: 1;
-        padding: 2em;
-      }
-      h1 {
-        font-size: 3em;
-        position: absolute;
-        top: 30%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin-top: 0;
-        text-align: center;
-        color: white;
-      }
-      p {
-        font-size: 1.25em;
-        line-height: 1.5;
-        margin-bottom: 2em;
-      }
-      .cta-button {
-        background-color: #007bff;
-        border: none;
-        border-radius: 0.25em;
-        color: #fff;
-        display: inline-block;
-        font-size: 1.25em;
-        margin-right: 1em;
-        padding: 0.75em 1.5em;
-        text-align: center;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-      }
-      .cta-button:hover {
-        background-color: #0062cc;
-      }
-      footer {
-        background-color: #333;
-        color: #fff;
-        padding: 1em;
-        text-align: center;
-        margin-top: auto;
-      }
-      footer p {
-        margin: 0;
-      }
-      .buttons{
-        text-align: center;
-      }
-      .container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
-          <li><a href="/log_out">Log out</a></li>
-          <li><a href="/categories">Categories</a></li>
-          <li><a href="/products">Products</a></li>
-        </ul>
-      </nav>
-    </header>
+<%= javascript_include_tag 'mdb' %>
 
-    <main>
-    <div class="container">
-      <h1>Welcome to my web app!</h1>
-      <div class="buttons">
-        <a href="/users/sign_up" class="cta-button">Sign Up</a>
-        <a href="/users/sign_in" class="cta-button">Log In</a>
+<style>
+  .card{
+    background-color: #332d2d;
+  }
+
+  .card-img-container {
+    height: 450px;
+    overflow: hidden; 
+  }
+  
+  .card-img-container img {
+    object-fit: cover; 
+    height: 100%; 
+    width: 100%; 
+  }
+
+  .logo-image {
+    max-width: 150px; 
+    max-height: 150px; 
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+<section style="background-color: #E0E0E0; height: 89.3vh; position: relative; overflow-x: hidden;">
+  <div class="container mt-4 mb-1 text-center", style="max-width: 800px">
+    <%= image_tag("https://i.imgur.com/mDaj6Rs.png", class: "logo-image") %>
+    <p class="mt-1", style="font-size: 40px; font-weight: bold; font-family: 'Anton', sans-serif;">Welcome to Basketball Haven</p>
+  </div>
+ <div class="container mt-4 mb-1 ", style="max-width: 400px">
+    <%= form_tag root_path, method: :get, class: "form-inline justify-content-center", id: "homepage-search-form" do %>
+      <div class="input-group">
+        <div class="form-outline">
+          <%= text_field_tag :search, params[:search], id: "form1", class: "form-control" %>
+          <label class="form-label" for="form1">Search</label>
+        </div>
+        <%= button_tag(type: "submit", class: "btn btn-primary") do %>
+          <i class="fas fa-search"></i>
+        <% end %>
       </div>
-    </div>
-    </main>
 
-    <footer>
-      <p>&copy; 2023 My web app</p>
-    </footer>
-  </body>
-</html>
+    <% end %>
+  </div>
+  <div id="products-section" class="row mx-2">
+    <% @products.each do |product| %>
+      <div class="col-lg-3 col-md-6 mb-4 mt-4">
+        <div class="card">
+          <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+          <a href="<%= product_path(product) %>">
+          <div class="card-img-container">
+            <%= image_tag product.image.present? ? product.image : "1.jpeg", class: "d-block w-100" %>
+          </div>
+            <div class="card-body">
+              <h5 class="card-title mb-2" style="color: white; text-align: center"><%= product.name %></h5>
+              <p class="mb-4" style="text-align: center; color: #b3b3b3"><%= product.description %></p>
+              <div class="d-flex justify-content-between">
+                <span style="color: white;">Stock</span><span style="color: white;"><%= product.stock %> left</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span style="color: white;">Price</span><span style="color: white;"><%= product.price %> $</span>
+              </div>
+          </a>
+              <div class="text-center total font-weight-bold mt-4">
+                <% if current_user.present? %>
+                  <%= button_to 'Buy Now!', orders_path(order: { user_id: current_user.id, product_id: product.id }), data: {turbo_method: :post, turbo_confirm: "Are you sure you want to buy #{product.name}?"}, class: "btn btn-primary", style: "margin-right: 20px;" %>
+                <% else %>
+                  <p class="mb-0", style="color: #b3b3b3">You need to be logged in to order!</p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<footer class="text-center text-white", style="margin-top: auto;">
+  <div class="text-center p-2" style="background-color: #332d2d; color: #FFFFFF;">
+      © 2023 Basketball Haven
+  </div>
+</footer>
+
+
+<script>
+  $(document).ready(function() {
+    $('#homepage-search-form').on('submit', function(event) {
+      event.preventDefault(); 
+
+      var formData = $(this).serialize(); 
+
+      $.ajax({
+        url: '<%= root_path %>',
+        type: 'GET',
+        data: formData,
+        dataType: 'html', 
+        success: function(response) {
+          $('#products-section').html(response);
+        },
+        error: function(xhr, status, error) {
+          console.log(error);
+        }
+      });
+    });
+  });
+</script>

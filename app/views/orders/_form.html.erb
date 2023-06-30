@@ -1,0 +1,8 @@
+<%= form_for(@order) do |f| %>
+  <div class="form-outline mb-4">
+    <%= f.text_field :tracking_nr, autofocus: true, required: true, class: "form-control", style: "color: white", placeholder: "Tracking Number"%>
+  </div>
+  <div class="actions">
+    <%= f.submit "Ship Now!", class: "btn btn-primary btn-block mb-4" %>
+  </div>
+<% end %>

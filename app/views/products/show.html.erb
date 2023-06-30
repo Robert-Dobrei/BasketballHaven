@@ -1,4 +1,36 @@
-<p id="notice"><%= notice %></p>
+<%= javascript_include_tag 'mdb' %>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<body style="background-color: #E0E0E0; display: flex; flex-direction: column; min-height: 100vh; margin: 0; padding: 0;">
+  <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card" style="width: 34rem; background-color: #332d2d;">
+      <div class="card-body">
+        <div class="d-flex justify-content-center">
+          <%= image_tag @product.image %>
+        </div>
+        <h5 class="card-title" style="color: white;">Product name: <%= @product.name %></h5>
+        <br>
+        <p class="card-text" style="color: white;">Description: <%= @product.description %></p>
+        <p class="card-text" style="color: white;">Product sku: <%= @product.sku %></p>
+        <p class="card-text" style="color: white;">Stock left: <%= @product.stock %></p>
+        <p class="card-text" style="color: white;">Price: <%= @product.price %> $</p>
+        <div class="d-flex justify-content-center">
+          <% if current_user.present? %>
+            <%= button_to 'Buy Now!', orders_path(order: { user_id: current_user.id, product_id: @product.id }), data: {turbo_method: :post, turbo_confirm: "Are you sure you want to buy #{@product.name}?"}, class: "btn btn-primary", style: "margin-right: 20px;" %>
+          <% else %>
+            <p class="mb-0", style="color: #b3b3b3; margin-right: 20px;">You need to be logged in to order!</p>
+          <% end %>
+          <button class="btn btn-warning" onclick="goBack()">Back</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<script>
+  function goBack() {
+    history.back();
+  }
+</script>
+
+
+</body>

@@ -1,17 +1,43 @@
-<h2>Users</h2>
+<%= javascript_include_tag 'mdb' %>
 
-<table>
-<tr>
-<th>ID</th>
-<th>Email</th>
-<th>Creation Date</th>
-</tr>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
-<% @users.each do |user| %>
-<tr>
-<td><%= user.id%></td>
-<td><%= user.email%></td>
-<td><%= user.created_at%></td>
-</tr>
-<%end%>
-</table>
+<body style="background-color: #E0E0E0; height: 100vh; margin: 0; padding: 0;">
+<div class="container mt-5">
+  <h2 style="font-family: 'Anton', sans-serif;">Users</h2>
+  <br>
+  <%== pagy_info(@pagy) %>
+  <br>
+  <br>
+  <table class="table table-info table-striped table-dark">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">E-mail</th>
+          <th scope="col">Role</th>
+          <th scope="col">Creation Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+            <td><%= user.created_at%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+</div>
+</body>
+
+<footer class="text-center text-white mt-4 fixed-bottom">
+  <div class="text-center p-2" style="background-color: #332d2d; color: #FFFFFF;">
+      © 2023 Basketball Haven
+  </div>
+</footer>

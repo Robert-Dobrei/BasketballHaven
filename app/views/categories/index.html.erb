@@ -1,57 +1,29 @@
+<%= javascript_include_tag 'mdb' %>
+
 <style>
-      header {
-        background-color: #333;
-        color: #fff;
-        padding: 1em;
-      }
-      nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      nav li {
-        display: inline-block;
-        margin-right: 1em;
-      }
-      nav a {
-        color: #fff;
-        text-decoration: none;
-      }
-      nav a:hover {
-        text-decoration: underline;
-      }   
-      .gradient-custom-2 {
-        /* fallback for old browsers */
-        background: #00e1ff;
-      
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: -webkit-linear-gradient(to right, rgba(0,225,255,0.5), rgba(240,0,0,0.5));
-      
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        background: linear-gradient(to right, rgba(0,225,255,0.5), rgba(240,0,0,0.5))
+  .show-link {
+    color: white; /* Default color */
+    transition: color 0.3s; /* Transition effect */
+  }
 
-        
-      }
-</style>  
+  .show-link:hover {
+    color: gray; /* Hover color */
+  }
+</style>
 
-<header>
-  <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/about">About</a></li>
-      <li><a href="/contact">Contact</a></li>
-      <li><a href="/log_out">Log out</a></li>
-      <li><a href="/categories">Categories</a></li>
-      <li><a href="/products">Products</a></li>
-    </ul>
-  </nav>
-</header>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
+<body style="background-color: #E0E0E0; height: 100vh; margin: 0; padding: 0;">
 <div class="container mt-5">
-  <h2>Categories</h2>
-  <%= link_to 'New Category', new_category_path %>
+  <h2 style="font-family: 'Anton', sans-serif;">Categories</h2>
+  <%= link_to 'New Category', new_category_path, class: "btn btn-primary mt-1 " %>
   <br>
-  <table class="table table-info table-striped">
+  <br>
+  <%== pagy_info(@pagy) %>
+  <br>
+  <br>
+  <table class="table table-info table-striped table-dark">
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -66,9 +38,17 @@
             <td><%= category.id %></td>
             <td><%= category.name %></td>
             <td><%= category.description %></td>
-            <td><%= link_to 'Show', category %> | <%= link_to 'Edit', edit_category_path(category) %> | <%= link_to 'Destroy', category, data: { turbo_method: :delete, confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Edit', edit_category_path(category), class: 'show-link' %> | <%= link_to 'Destroy', category, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'show-link' %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
+    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
+</body>
+
+<footer class="text-center text-white mt-4 fixed-bottom">
+  <div class="text-center p-2" style="background-color: #332d2d; color: #FFFFFF;">
+      © 2023 Basketball Haven
+  </div>
+</footer>

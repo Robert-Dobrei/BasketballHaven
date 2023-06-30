@@ -1,74 +1,75 @@
+<%= javascript_include_tag 'mdb' %>
+
 <style>
-      header {
-        background-color: #333;
-        color: #fff;
-        padding: 1em;
-      }
-      nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      nav li {
-        display: inline-block;
-        margin-right: 1em;
-      }
-      nav a {
-        color: #fff;
-        text-decoration: none;
-      }
-      nav a:hover {
-        text-decoration: underline;
-      }   
-      .gradient-custom-2 {
-        /* fallback for old browsers */
-        background: #00e1ff;
-      
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: -webkit-linear-gradient(to right, rgba(0,225,255,0.5), rgba(240,0,0,0.5));
-      
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        background: linear-gradient(to right, rgba(0,225,255,0.5), rgba(240,0,0,0.5))
+  .show-link {
+    color: white; /* Default color */
+    transition: color 0.3s; /* Transition effect */
+  }
 
-        
-      }
-</style>  
+  .show-link:hover {
+    color: gray; /* Hover color */
+  }
+</style>
 
-<header>
-  <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/about">About</a></li>
-      <li><a href="/contact">Contact</a></li>
-      <li><a href="/log_out">Log out</a></li>
-      <li><a href="/categories">Categories</a></li>
-      <li><a href="/products">Products</a></li>
-    </ul>
-  </nav>
-</header>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
-<p id="notice"><%= notice %></p>
-
-<h1>Products</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<body style="background-color: #E0E0E0; display: flex; flex-direction: column; min-height: 100vh; margin: 0; padding: 0;">
+<div class="container mt-5">
+  <h2 style="font-family: 'Anton', sans-serif;">Products</h2>
+  <% if current_user.present? %>
+    <% if current_user.role == "admin" %>
+      <%= link_to 'New Product', new_product_path, class: "btn btn-primary mt-1 mb-3" %>
+    <%end%>
+  <% end %>
+  <br>
+  <%= render "filter_menu"%>
+  <%== pagy_info(@pagy) %>
+  <br>
+  <br>
+  <table class="table table-info table-striped table-dark">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Category</th>
+          <th scope="col">SKU</th>
+          <th scope="col">Stock</th>
+          <th scope="col">Price</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.id %></td>
+          <td><%= product.name %></td>
+          <td><%= product.description %></td>
+          <td><%= product.category.name%></td>
+          <td><%= product.sku %></td>
+          <td><%= product.stock %></td>
+          <td><%= product.price %></td>
+          <% if current_user.present?%>
+            <% if current_user.role == "admin" %>
+              <td><%= link_to 'Show', product, class: 'show-link' %> | <%= link_to 'Edit', edit_product_path(product), class: 'show-link' %> | <%= link_to 'Destroy', product, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'show-link' %></td>
+            <% else %>
+              <td><%= link_to 'Show', product, class: 'show-link' %> | <%= link_to 'Buy Now!', orders_path(order: { user_id: current_user.id, product_id: product.id }), data: {turbo_method: :post, turbo_confirm: "Are you sure you want to buy #{product.name}?"}, class: "show-link" %>
+            <% end %>
+          <% else %>
+            <td><%= link_to 'Show', product, class: 'show-link' %></td>
+          <% end %>
+        </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+  <br>
+</div>
+</body>
 
-<br>
-
-<%= link_to 'New Product', new_product_path %>
+<footer class="text-center text-white  " style="margin-top: auto;">
+  <div class="text-center p-2" style="background-color: #332d2d; color: #FFFFFF;">
+      © 2023 Basketball Haven
+  </div>
+</footer>

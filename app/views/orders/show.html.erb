@@ -1,0 +1,64 @@
+<body style="background-color: #E0E0E0; display: flex; flex-direction: column; min-height: 100vh; margin: 0; padding: 0;">
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card col-md-8" style="background-color: #332d2d; color: white;">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-11">
+            <h5>Order #<%= @order.id %></h5>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-4">
+            <p class="mb-0" style="color: white;">User:</p>
+          </div>
+          <div class="col-sm-8">
+            <p class="mb-0", style="color: #b3b3b3"><%= @order.user.email %></p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-4">
+            <p class="mb-0" style="color: white;">Product:</p>
+          </div>
+          <div class="col-sm-8">
+            <p class="mb-0", style="color: #b3b3b3"><%= @order.product.name %></p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-4">
+            <p class="mb-0" style="color: white;">Quantity:</p>
+          </div>
+          <div class="col-sm-8">
+            <p class="mb-0", style="color: #b3b3b3"><%= @order.quantity %></p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-4">
+            <p class="mb-0" style="color: white;">Tracking Number:</p>
+          </div>
+          <div class="col-sm-8">
+            <p class="mb-0", style="color: #b3b3b3"><%= @order.tracking_nr %></p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-4">
+            <p class="mb-0" style="color: white;">Status:</p>
+          </div>
+          <div class="col-sm-8">
+            <p class="mb-0", style="color: #b3b3b3"><%= @order.status %></p>
+          </div>
+        </div>
+      </div>  
+      <div class="card-footer text-center">
+        <% if current_user.role == "admin" && @order.status != 'shipped'%>
+          <%= link_to 'Ship Now', edit_order_path(@order), class:'btn btn-primary', style: "margin-right: 20px" %>
+        <% end %>
+        <%= link_to "Back to orders", orders_path, class: "btn btn-warning" %>
+      </div>
+    </div>
+  </div>
+</body>

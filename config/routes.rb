@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+  resources :credit_cards
+  resources :orders
   resources :categories
   resources :products
-  devise_for :users
+  resources :addresses
+  resources :credit_cards
+  devise_for :users , controllers: { registrations: 'user/registrations' }
 
   root 'home#home'
 
@@ -14,5 +18,7 @@ Rails.application.routes.draw do
   get 'log_out', to: 'extra#new'
 
   get 'accounts', to: 'users#index', as: 'users'
+
+  get 'profile', to: 'users#show'
 
 end

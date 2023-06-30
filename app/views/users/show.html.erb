@@ -1,0 +1,88 @@
+<%= javascript_include_tag 'mdb' %>
+
+<body style="background-color: #E0E0E0; display: flex; flex-direction: column; min-height: 100vh; margin: 0; padding: 0;">
+  <section class="d-flex justify-content-center align-items-center flex-grow-1">
+    <div class="card-deck mb-10">
+      <div class="card" style="width: 550px; background-color: #332d2d;">
+        <div class="card-body text-center">
+          <% if @user.image.present? %>
+            <%= image_tag @user.image, alt: 'avatar', class: 'rounded-circle img-fluid', style: 'width: 150px;' %>
+          <% else %>
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+          <% end %>
+          <h5 class="my-3 text-center", style="color: white;"><%= @user.name %></h5>
+          <p class="mb-1 text-center", style="color: #b3b3b3;"><%= @user.email %></p>
+          <div class="d-flex justify-content-center mt-2">
+            <%= link_to 'Edit profile', edit_user_registration_path, class: 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="card" style="background-color: #332d2d;">
+        <div class="card-body">
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+              <p class="mb-0 text-center", style="color: white;">Credit card nr.</p>
+            </div>
+            <div class="col-sm-6">
+              <% if @user.credit_card %>
+                <% credit_card_number = @user.credit_card.creditnr.to_s %>
+                <% masked_number = '*' * (credit_card_number.length - 4) + credit_card_number[-4, 4] %>
+                <p class="mb-0 text-center", style="color: #b3b3b3;"><%= masked_number %></p>
+              <% else %>
+                <p class="mb-0 text-center", style="color: #b3b3b3;">None</p>
+              <% end %>
+            </div>
+            <div class="col-sm-6 mt-2">
+              <p class="mb-0 text-center", style="color: white;">Exp. date</p>
+            </div>
+            <div class="col-sm-6 mt-2">
+              <% if @user.credit_card %>
+                <p class="mb-0 text-center", style="color: #b3b3b3;"><%= @user.credit_card.expday %>/<%= @user.credit_card.expmonth %>/<%= @user.credit_card.expyear %></p>
+              <% else %>
+                <p class="mb-0 text-center", style="color: #b3b3b3;">None</p>
+              <% end %>
+            </div>
+          </div>
+          <br>
+          <% if @user.credit_card %>
+          <div class="d-flex justify-content-center mb-2">
+            <%= link_to 'Edit Credit Card', edit_credit_card_path(@user.credit_card), class: "btn btn-primary"%>
+          </div>
+          <% else %>
+          <div class="d-flex justify-content-center mb-2">
+            <%= link_to 'Add Credit Card', new_credit_card_path(@user.credit_card), class: "btn btn-primary"%>
+          </div>
+          <% end %>
+          <hr>
+          <div class="row">
+            <div class="col-sm-6">
+              <p class="mb-0 text-center", style="color: white;">Address</p>
+            </div>
+            <div class="col-sm-6">
+            <% if @user.address %>
+              <p class="mb-0 text-center", style="color: #b3b3b3;"><%= @user.address.city %>, Str. <%= @user.address.street %>, Nr. <%= @user.address.housenr %></p>
+            <% else %>
+              <p class="mb-0 text-center", style="color: #b3b3b3;">None</p>
+            <% end %>
+            </div>
+            <br>
+            <br>
+            <% if @user.address %>
+              <div class="d-flex justify-content-center mb-2">
+              <%= link_to 'Edit Address', edit_address_path(@user.address), class: "btn btn-primary"%>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center text-white mt-4 fixed-bottom">
+    <div class="text-center p-2" style="background-color: #332d2d; color: #FFFFFF;">
+      © 2023 Basketball Haven
+    </div>
+  </footer>
+</body>
